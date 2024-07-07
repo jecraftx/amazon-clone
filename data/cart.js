@@ -13,6 +13,9 @@ if (!cart) {
 
 
 function saveToStorage() {
+    // setItem(keyName, keyValue)
+    // keyName = string containing the name of the key to update/create
+    // keyValue = string containing the value to give the key updating/creating
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
