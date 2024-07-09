@@ -1,14 +1,14 @@
 class Cart {
-    cartItems;
-    localStorageKey;
+    cartItems;          // public  property 
+    #localStorageKey;   // private property 
 
     constructor() {
-        this.localStorageKey = 'cart-oop';
-        this.loadFromStorage();
+        this.#localStorageKey = 'cart-oop';
+        this.#loadFromStorage();
     }
 
-    loadFromStorage() {
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+    #loadFromStorage() {
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
         if (!this.cartItems) {
             this.cartItems = [{
                 productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -26,7 +26,7 @@ class Cart {
         // setItem(keyName, keyValue)
         // keyName = string containing the name of the key to update/create
         // keyValue = string containing the value to give the key updating/creating
-        localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
 
     addToCart(productId) {
