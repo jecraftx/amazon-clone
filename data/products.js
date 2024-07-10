@@ -61,6 +61,36 @@ class Clothing extends Product{
   }
 } 
 
+// const date = new Date();
+// console.log(date);
+// console.log(date.toLocaleTimeString()); 
+
+/*
+// here 'this' will be undefiled, since obj2 not created yet
+const obj2 = {
+  a: 2,
+  b: this.a
+};
+*/
+
+/*
+// not inside of any obj, nothing "this" can point to (undefined)
+function logThis() {
+  console.log(this);
+};
+// set "this" to be equal to hello 
+logThis.call('hello');
+*/
+/*
+const object3 = {
+  method: () => {
+    // here "this" will have the same value 
+    // as outside the arrow function
+    console.log(this); // undefined 
+  }
+};
+*/
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
