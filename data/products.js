@@ -13,7 +13,7 @@ export function getProduct(productId) {
 
 class Product {
   id;
-  iamge;
+  image;
   name;
   rating;
   priceCents;
@@ -116,6 +116,44 @@ const object3 = {
 */
 
 export let products = [];
+
+export function loadProductsFetch() {
+  // uses promise to wait for the response, not the callback 
+  const promise = fetch(
+    'https://supersimplebackend.dev/products'
+  ).then((response) => {
+    // to get the data that is attached to the response 
+    // response.json() is asynchronous, returns a promise
+    // need to wait for this promise to finish before cont with next 
+    return response.json();
+    // when response.json finishes 
+    // it will give us the data attached to the response
+    // and will save it inside then's parameter
+  }).then((productsData) => {
+    // just need to convert from object to classes
+    products = productsData.map((productDetails) => {   // convert the obj into a class 
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      } else if (productDetails.type === 'appliance') {
+        return new Appliance(productDetails);
+      }
+      return new Product(productDetails);
+    });
+
+    console.log('load products');
+  });
+
+  // we can return a promise from a function and 
+  // attach next steps (as many as we want)
+  return promise; 
+}
+
+/*
+loadProductsFetch().then(() => {
+  console.log('next step');
+});
+*/
+
 
 // to load products from the backend
 export function loadProducts(fun) {
