@@ -115,6 +115,33 @@ const object3 = {
 };
 */
 
+export let products = [];
+
+// to load products from the backend
+export function loadProducts(fun) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+    // to convert back to JS object parse
+    // and then use map to convert to classes 
+    products = JSON.parse(xhr.response).map((productDetails) => {   // convert the obj into a class 
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      } else if (productDetails.type === 'appliance') {
+        return new Appliance(productDetails);
+      }
+      return new Product(productDetails);
+    });;
+
+    // after loading the response we are gonna run the fun 
+    fun();
+  });
+
+  xhr.open('GET', 'https://supersimplebackend.dev/products');
+  xhr.send();   // will just send the request, but not wait for it 
+} 
+
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -794,3 +821,4 @@ export const products = [
   }
   return new Product(productDetails);
 });
+*/
