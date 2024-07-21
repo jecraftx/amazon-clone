@@ -88,5 +88,17 @@
         </div>
       </div>
     </div>
+
+  <script>
+    // to get the params out of the URL, use built in class. 
+    // first generate an object using this class.
+    // and give it the url we get the params from.
+    // this url class analyzes the url we give it and breaks it down to several parts 
+    // one of the parts is url path 
+    const url = new URL(window.location.href);
+    // get orderId parameter out of the url 
+    console.log(url.searchParams.get('orderId'));
+    console.log(url.searchParams.get('productId'));
+  </script>
   </body>
 </html>
