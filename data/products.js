@@ -141,12 +141,17 @@ export function loadProductsFetch() {
     });
 
     console.log('load products');
+  // if there is an error, it will run catch method
+  // just like callback has parameter error (which has info about the error)
+  }).catch((error) => {
+    console.log('Unexpected error. Please try again later.');
   });
 
   // we can return a promise from a function and 
   // attach next steps (as many as we want)
   return promise; 
 }
+
 
 /*
 loadProductsFetch().then(() => {
@@ -173,6 +178,13 @@ export function loadProducts(fun) {
 
     // after loading the response we are gonna run the fun 
     fun();
+  });
+
+  // once we get unexpected error it will run this func
+  // and will not run the above function 
+  // usually get a callback "error" which has some info about the error 
+  xhr.addEventListener('error', (error) => {
+    console.log('Unexpected error. Please try again later.');
   });
 
   xhr.open('GET', 'https://supersimplebackend.dev/products');

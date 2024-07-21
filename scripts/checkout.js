@@ -6,15 +6,26 @@ import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 
 async function loadPage() {
-    await loadProductsFetch();
-    // load the cart with promise 
-    // need for this promise to finish before next line -> use await
-    const value = await new Promise((resolve) => {
-        // give it a function to run when its finished 
-        loadCart(() => {
-            resolve('value3');  // to move to the next step 
+    // put the code that could cause the error in try 
+    try {
+        // throw 'error1';
+
+        await loadProductsFetch();
+        // load the cart with promise 
+        // need for this promise to finish before next line -> use await
+        const value = await new Promise((resolve, reject) => {
+            // throw 'error2';
+            // give it a function to run when its finished 
+            loadCart(() => {
+                // reject('error3');
+                resolve('value3');  // to move to the next step 
+            });
         });
-    });
+        // parameter error contains infor about the error
+        // now error1 from throw will be saved in this param 
+    } catch (error) {
+        console.log('Unexpected error. Please try again later...');
+    }    
 
     renderOrderSummary();
     renderPaymentSummary();
