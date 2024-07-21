@@ -5,6 +5,27 @@ import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 
+async function loadPage() {
+    await loadProductsFetch();
+    // load the cart with promise 
+    // need for this promise to finish before next line -> use await
+    const value = await new Promise((resolve) => {
+        // give it a function to run when its finished 
+        loadCart(() => {
+            resolve('value3');  // to move to the next step 
+        });
+    });
+
+    renderOrderSummary();
+    renderPaymentSummary();
+}
+
+loadPage();
+
+/*
+// loaded the products 
+// then loaded the cart 
+// then we rendered the page
 Promise.all([
     loadProductsFetch(),
     new Promise((resolve) => {
@@ -19,7 +40,7 @@ Promise.all([
     renderOrderSummary();
     renderPaymentSummary();
 })
-
+*/
 
 /*
 new Promise((resolve) => {
